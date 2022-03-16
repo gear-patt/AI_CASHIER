@@ -33,6 +33,8 @@ cam = cv2.VideoCapture(1)
 
 cv2.namedWindow("test")
 img_counter = 0
+serialcomm = serial.Serial('/dev/cu.usbmodem14401', 9600)
+serialcomm.timeout = 1
 
 while True:
     ret, frame = cam.read()
@@ -45,7 +47,7 @@ while True:
     text = ""
     if k % 256 == 27:
         # ESC pressed
-        # apple is 25 baht, banana is 20 baht, capsicum is 15 baht, corn is 10 baht, ornage is 5 baht.
+        # apple is 25 baht, banana is 20 baht, capsicum is 15 baht, corn is 10 baht, orange is 5 baht.
         text = "Done"
         break
     elif k % 256 == 32:
@@ -64,8 +66,6 @@ while True:
             text = "Orange 10"
         else:
             text = "Potato 5"
-    serialcomm = serial.Serial('/dev/cu.usbmodem14401', 9600)
-    serialcomm.timeout = 1
     if text == 'Done':
         break
     if text != '':
